@@ -1,6 +1,6 @@
 /**
  * This file is part of BNS Early Adopter
- * Last revised at version 0.1
+ * Last revised at version 0.2
  *
  * Copyright 2012  Edward Caissie  (email : edward.caissie@gmail.com)
  *
@@ -24,6 +24,15 @@
  */
 
 .bnsea-no-show { display: none; }
+
+div.bnsea-shortcode div.widget,
+div.bnsea-shortcode div.widget h2 {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
 
 h3.bnsea-output {
     font-style: italic;

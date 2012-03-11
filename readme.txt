@@ -16,14 +16,22 @@ Read this article for further assistance: http://wpfirstaid.com/2009/12/plugin-i
 
 ----
 = Shortcode: bnsea =
-* TBA - Parameters will be very similar to the plugin
+The parameters are very similar to the widget
+
+* 'title'         => Can be used as a lead-in message, remember to wrap phrases in double-quotation marks
+* 'show_alpha'    => false by default, use true to activate
+* 'show_beta'     => false by default, use true to activate
+* 'show_stable'   => false by default, use true to activate
+* 'only_admin'    => false by default, use true to activate
+
+NB: Custom CSS may be required when this shortcode is used with some Themes.
 
 == Frequently Asked Questions ==
 = Q: Why would I want to use this plugin / widget? =
 A: To show your faith in WordPress code and the developers who write it.
 
 == Screenshots ==
-* Appearing soon ...
+1. Default widget options panel
 
 == Other Notes ==
 * Copyright 2012  Edward Caissie  (email : edward.caissie@gmail.com)
@@ -52,5 +60,12 @@ A: To show your faith in WordPress code and the developers who write it.
 Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
+= 0.2 =
+* Added conditional display widget check: if no version is checked, or no matching version is found the widget will not be displayed.
+* Cleaned up grammar conditional statements
+* Added only show administrators option
+* Added shortcode support
+* Added screenshot of default widget option panel
+
 = 0.1 =
 * Initial Release.
