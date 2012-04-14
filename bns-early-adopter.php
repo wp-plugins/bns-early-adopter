@@ -3,7 +3,7 @@
 Plugin Name: BNS Early Adopter
 Plugin URI: http://buynowshop.com/plugins/bns-early-adopter
 Description: Show off you are an early adopter of WordPress (alpha, beta, and/or release candidate versions)
-Version: 0.3.1
+Version: 0.4
 TextDomain: bns-ea
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
@@ -20,7 +20,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link        http://buynowshop.com/plugins/bns-early-adopter/
  * @link        https://github.com/Cais/bns-early-adopter/
  * @link        http://wordpress.org/extend/plugins/bns-early-adopter/
- * @version     0.3.1
+ * @version     0.4
  * @author      Edward Caissie <edward.caissie@gmail.com>
  * @copyright   Copyright (c) 2012, Edward Caissie
  *
@@ -127,35 +127,35 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
         $show_stable    = $instance['show_stable'];
         $only_admin     = $instance['only_admin'];
 
+        /** The secret sauce of this whole sordid affair ... */
         /**
-         * The secret sauce of this whole sordid affair ...
-         *
-         * Get the global version and put it into an all lower case string
+         * Get the global WordPress version and put it into an all lower case
+         * string - we need to start somewhere, right?
          */
         global $wp_version;
         $version_string = strtolower( $wp_version );
-        $ea_version = '';
+        /** @var $ea_version - early adopter version; set to stable as default */
+        $ea_version = 'stable';
 
         /** Step through the version string looking for an "a" for alpha, "b" for beta, or "r" for release candidate */
         for ( $i = 1; $i < strlen( $version_string ); $i++ ) {
-            if ( 'a' == substr( $version_string, $i, 1 ) || 'b' == substr( $version_string, $i, 1 ) ) {
+            if ( 'a' == substr( $version_string, $i, 1 )
+                || 'b' == substr( $version_string, $i, 1 )
+                || 'r' == substr( $version_string, $i, 1 )) {
                 /** @var    string $test_character - used to assign $ea_version string  */
                 $test_character = substr( $version_string, $i, 1 );
                 if ( 'a' == $test_character ) {
                     /** @var string $ea_version - if 'a' is found then set to alpha  */
                     $ea_version = 'alpha';
-                    // echo $ea_version;
                 } elseif ( 'b' == $test_character ) {
                     /** @var string $ea_version - if 'b' is found then set to beta */
                     $ea_version = 'beta';
-                    // echo $ea_version;
                 } elseif ( 'r' == $test_character ) {
                     /** @var string $ea_version - if 'r' is found then set to release */
                     $ea_version = 'release candidate';
                 } else {
-                    /** No 'a', 'b', or 'r' found must be some other nonsense or a 'stable release' */
-                    $ea_version = 'stable';
-                    // echo $ea_version;
+                    /** No 'a', 'b', or 'r' found must be some other nonsense */
+                    $ea_version = 'stable(?)';
                 }
                 /** @var number $i - if the `test_character` was found, end the for loop by forcing the index value to its maximum */
                 $i = strlen( $version_string );
@@ -219,43 +219,13 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
         }
 
         /**
-         * The secret sauce of this whole sordid affair ...
-         *
-         * Get the global version and put it into an all lower case string
-         */
-        global $wp_version;
-        $version_string = strtolower( $wp_version );
-        $ea_version = '';
-
-        /** Step through the version string looking for an "a" for alpha, or a "b" for beta */
-        for ( $i = 1; $i < strlen( $version_string ); $i++ ) {
-            if ( 'a' == substr( $version_string, $i, 1 ) || 'b' == substr( $version_string, $i, 1 ) ) {
-                /** @var    string $test_character - used to assign $ea_version string  */
-                $test_character = substr( $version_string, $i, 1 );
-                if ( 'a' == $test_character ) {
-                    /** @var string $ea_version - if 'a' is found then set to alpha  */
-                    $ea_version = 'alpha';
-                } elseif ( 'b' == $test_character ) {
-                    /** @var string $ea_version - if 'b' is found then set to beta */
-                    $ea_version = 'beta';
-                } elseif ( 'r' == $test_character ) {
-                    /** @var string $ea_version - if 'r' is found then set to release candidate */
-                    $ea_version = 'release candidate';
-                } else {
-                    /** No 'a', 'b', or 'r' found must be some other nonsense ... or a 'stable release' */
-                    $ea_version = 'stable';
-                }
-                /** @var number $i - if the `test_character` was found end for loop by forcing the index value to its maximum */
-                $i = strlen( $version_string );
-            }
-        }
-
-        /**
          * Get fancy here and write the output with correct grammar
          */
         if ( ( 'alpha' == $ea_version ) && ( $show_alpha ) ) {
             $output = sprintf( __( "We are running an %s version of WordPress!", 'bns-ea' ), $ea_version );
-        } elseif ( ( ( 'beta' == $ea_version ) && $show_beta ) || ( ( 'stable' == $ea_version ) && $show_stable )  || ( ( 'release candidate' == $ea_version ) && $show_rc ) ) {
+        } elseif ( ( ( 'beta' == $ea_version ) && $show_beta )
+            || ( ( 'stable' == $ea_version ) && $show_stable )
+            || ( ( 'release candidate' == $ea_version ) && $show_rc ) ) {
             $output = sprintf( __( "We are running a %s version of WordPress!", 'bns-ea' ), $ea_version );
         } else {
             /** @var null $output - widgets must have output of some sort or the Gods of programming will rain hellfire down on your code */
