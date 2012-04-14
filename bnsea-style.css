@@ -1,6 +1,6 @@
 /**
  * This file is part of BNS Early Adopter
- * Last revised at version 0.2
+ * Last revised at version 0.3.1
  *
  * Copyright 2012  Edward Caissie  (email : edward.caissie@gmail.com)
  *
@@ -36,5 +36,6 @@ div.bnsea-shortcode div.widget h2 {
 
 h3.bnsea-output {
     font-style: italic;
+    margin: 0;
     text-align: center;
 }

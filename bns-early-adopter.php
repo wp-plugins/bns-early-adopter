@@ -2,8 +2,8 @@
 /*
 Plugin Name: BNS Early Adopter
 Plugin URI: http://buynowshop.com/plugins/bns-early-adopter
-Description: Show off you are an early adopter of WordPress (alpha and/or beta versions)
-Version: 0.3
+Description: Show off you are an early adopter of WordPress (alpha, beta, and/or release candidate versions)
+Version: 0.3.1
 TextDomain: bns-ea
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
@@ -20,7 +20,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link        http://buynowshop.com/plugins/bns-early-adopter/
  * @link        https://github.com/Cais/bns-early-adopter/
  * @link        http://wordpress.org/extend/plugins/bns-early-adopter/
- * @version     0.3
+ * @version     0.3.1
  * @author      Edward Caissie <edward.caissie@gmail.com>
  * @copyright   Copyright (c) 2012, Edward Caissie
  *
@@ -44,9 +44,10 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * The license for this software can also likely be found here:
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Last revised March 29, 2012
- * @version 0.3
- * Add 'release candidate' option
+ * Last revised April 14, 2012
+ * @version 0.3.1
+ * Added `margin: 0` to 'h3.bnsea-output'
+ * Updated screenshot
  *
  * @todo Add option to allow for end-user text?
  */
@@ -81,9 +82,9 @@ load_plugin_textdomain( 'bns-ea' );
 function BNSEA_Scripts_and_Styles() {
         /** Enqueue Scripts */
         /** Enqueue Style Sheets */
-        wp_enqueue_style( 'BNSEA-Style', plugin_dir_url( __FILE__ ) . 'bnsea-style.css', array(), '0.1', 'screen' );
+        wp_enqueue_style( 'BNSEA-Style', plugin_dir_url( __FILE__ ) . 'bnsea-style.css', array(), '0.3.1', 'screen' );
         if ( is_readable( plugin_dir_path( __FILE__ ) . 'bnsea-custom-style.css' ) ) {
-            wp_enqueue_style( 'BNSEA-Custom-Style', plugin_dir_url( __FILE__ ) . 'bnsea-custom-style.css', array(), '0.1', 'screen' );
+            wp_enqueue_style( 'BNSEA-Custom-Style', plugin_dir_url( __FILE__ ) . 'bnsea-custom-style.css', array(), '0.3.1', 'screen' );
         }
 }
 add_action( 'wp_enqueue_scripts', 'BNSEA_Scripts_and_Styles' );
@@ -135,7 +136,7 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
         $version_string = strtolower( $wp_version );
         $ea_version = '';
 
-        /** Step through the version string looking for an "a" for alpha, or a "b" for beta */
+        /** Step through the version string looking for an "a" for alpha, "b" for beta, or "r" for release candidate */
         for ( $i = 1; $i < strlen( $version_string ); $i++ ) {
             if ( 'a' == substr( $version_string, $i, 1 ) || 'b' == substr( $version_string, $i, 1 ) ) {
                 /** @var    string $test_character - used to assign $ea_version string  */
@@ -152,11 +153,11 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
                     /** @var string $ea_version - if 'r' is found then set to release */
                     $ea_version = 'release candidate';
                 } else {
-                    /** No 'a' or 'b' found must be some other nonsense or a 'public release' version */
+                    /** No 'a', 'b', or 'r' found must be some other nonsense or a 'stable release' */
                     $ea_version = 'stable';
                     // echo $ea_version;
                 }
-                /** @var number $i - if the `test_character` was found end the for loop by forcing the index value to its maximum */
+                /** @var number $i - if the `test_character` was found, end the for loop by forcing the index value to its maximum */
                 $i = strlen( $version_string );
             }
         }
