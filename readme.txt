@@ -1,10 +1,10 @@
 === BNS Early Adopter ===
 Contributors: cais
 Donate link: http://buynowshop.com
-Tags: admin
+Tags: admin, widget-only
 Requires at least: 3.0
-Tested up to: 3.4.1
-Stable tag: 0.4.2
+Tested up to: 3.5
+Stable tag: 0.5
 License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -31,7 +31,7 @@ NB: Custom CSS may be required when this shortcode is used with some Themes.
 
 == Frequently Asked Questions ==
 = Q: Why would I want to use this plugin / widget? =
-A: To show your faith in WordPress code and the developers who write it.
+To show your faith in WordPress code and the developers who write it.
 
 == Screenshots ==
 1. Default widget options panel
@@ -63,6 +63,12 @@ A: To show your faith in WordPress code and the developers who write it.
 Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
+= 0.5 =
+* Release November 2012
+* Documentation updates
+* Optimized output buffer code used in the shortcode function
+* Remove load_plugin_textdomain as redundant
+
 = 0.4.2 =
 * Documentation updates
 * Programmatically add version number to enqueue calls

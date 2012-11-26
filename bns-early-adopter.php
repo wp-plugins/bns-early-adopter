@@ -3,7 +3,7 @@
 Plugin Name: BNS Early Adopter
 Plugin URI: http://buynowshop.com/plugins/bns-early-adopter
 Description: Show off you are an early adopter of WordPress (alpha, beta, and/or release candidate versions)
-Version: 0.4.2
+Version: 0.5
 TextDomain: bns-ea
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
@@ -20,7 +20,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link        http://buynowshop.com/plugins/bns-early-adopter/
  * @link        https://github.com/Cais/bns-early-adopter/
  * @link        http://wordpress.org/extend/plugins/bns-early-adopter/
- * @version     0.4.2
+ * @version     0.5
  * @author      Edward Caissie <edward.caissie@gmail.com>
  * @copyright   Copyright (c) 2012, Edward Caissie
  *
@@ -44,10 +44,10 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * The license for this software can also likely be found here:
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
- * @version 0.4.2
- * @date    August 2, 2012
- *
- * @todo Add option to allow for end-user text?
+ * @version 0.5
+ * @date    November 26, 2012
+ * Remove load_plugin_textdomain as redundant
+ * Optimized output buffer code used in shortcode function
  */
 
 /** Check installed WordPress version for compatibility ... set to version 3.0 */
@@ -57,19 +57,6 @@ if ( version_compare( $wp_version, "3.0", "<" ) )
     exit ( $exit_message );
 
 /**
- * BNS Early Adopter TextDomain
- * Make plugin text available for translation (i18n)
- *
- * @package:    BNS_Early_Adopter
- * @since:      0.1
- *
- * @internal translation files are expected to be found in the plugin root folder / directory.
- * @internal `bns-ea` is being used in place of `bns-early-adopter`
- */
-load_plugin_textdomain( 'bns-ea' );
-// End: BNS Early Adopter TextDomain
-
-/**
  * Enqueue Plugin Scripts and Styles
  *
  * Adds plugin stylesheet and allows for custom stylesheet to be added by end-user.
@@ -77,6 +64,7 @@ load_plugin_textdomain( 'bns-ea' );
  * @package BNS_Early_Adopter
  * @since   0.1
  *
+ * @uses    get_plugin_data
  * @uses    plugin_dir_url
  * @uses    plugin_dir_path
  * @uses    wp_enqueue_style
@@ -127,6 +115,8 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
      * @param   $instance
      *
      * @uses    apply_filters
+     * @uses    current_user_can
+     * @uses    is_user_logged_in
      */
     function widget( $args, $instance ){
         /** Get widget setting values */
@@ -235,11 +225,11 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
          * Get fancy here and write the output with correct grammar
          */
         if ( ( 'alpha' == $ea_version ) && ( $show_alpha ) ) {
-            $output = sprintf( __( "We are running an %s version of WordPress!", 'bns-ea' ), $ea_version );
+            $output = apply_filters( 'bnsea_alpha_text', sprintf( __( "We are running an %s version of WordPress!", 'bns-ea' ), $ea_version ) );
         } elseif ( ( ( 'beta' == $ea_version ) && $show_beta )
             || ( ( 'stable' == $ea_version ) && $show_stable )
             || ( ( 'release candidate' == $ea_version ) && $show_rc ) ) {
-            $output = sprintf( __( "We are running a %s version of WordPress!", 'bns-ea' ), $ea_version );
+            $output = apply_filters( 'bnsea_beta_text', sprintf( __( "We are running a %s version of WordPress!", 'bns-ea' ), $ea_version ) );
         } else {
             /** @var null $output - widgets must have output of some sort or the Gods of programming will rain hellfire down on your code */
             $output = '';
@@ -322,40 +312,40 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
         );
         $instance = wp_parse_args( (array) $instance, $defaults );
         ?>
-    <p>
-        <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'bns-ea' ); ?></label>
-        <input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" style="width:100%;" />
-    </p>
+        <p>
+            <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'bns-ea' ); ?></label>
+            <input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" style="width:100%;" />
+        </p>
 
-    <p>
-        <input class="checkbox" type="checkbox" <?php checked( (bool) $instance['show_alpha'], true ); ?> id="<?php echo $this->get_field_id( 'show_alpha' ); ?>" name="<?php echo $this->get_field_name( 'show_alpha' ); ?>" />
-        <label for="<?php echo $this->get_field_id( 'show_alpha' ); ?>"><?php _e( 'Show Alpha?', 'bns-ea' ); ?></label>
-    </p>
+        <p>
+            <input class="checkbox" type="checkbox" <?php checked( (bool) $instance['show_alpha'], true ); ?> id="<?php echo $this->get_field_id( 'show_alpha' ); ?>" name="<?php echo $this->get_field_name( 'show_alpha' ); ?>" />
+            <label for="<?php echo $this->get_field_id( 'show_alpha' ); ?>"><?php _e( 'Show Alpha?', 'bns-ea' ); ?></label>
+        </p>
 
-    <p>
-        <input class="checkbox" type="checkbox" <?php checked( (bool) $instance['show_beta'], true ); ?> id="<?php echo $this->get_field_id( 'show_beta' ); ?>" name="<?php echo $this->get_field_name( 'show_beta' ); ?>" />
-        <label for="<?php echo $this->get_field_id( 'show_beta' ); ?>"><?php _e( 'Show Beta?', 'bns-ea' ); ?></label>
-    </p>
+        <p>
+            <input class="checkbox" type="checkbox" <?php checked( (bool) $instance['show_beta'], true ); ?> id="<?php echo $this->get_field_id( 'show_beta' ); ?>" name="<?php echo $this->get_field_name( 'show_beta' ); ?>" />
+            <label for="<?php echo $this->get_field_id( 'show_beta' ); ?>"><?php _e( 'Show Beta?', 'bns-ea' ); ?></label>
+        </p>
 
-    <p>
-        <input class="checkbox" type="checkbox" <?php checked( (bool) $instance['show_rc'], true ); ?> id="<?php echo $this->get_field_id( 'show_rc' ); ?>" name="<?php echo $this->get_field_name( 'show_rc' ); ?>" />
-        <label for="<?php echo $this->get_field_id( 'show_rc' ); ?>"><?php _e( 'Show Release Candidate?', 'bns-ea' ); ?></label>
-    </p>
+        <p>
+            <input class="checkbox" type="checkbox" <?php checked( (bool) $instance['show_rc'], true ); ?> id="<?php echo $this->get_field_id( 'show_rc' ); ?>" name="<?php echo $this->get_field_name( 'show_rc' ); ?>" />
+            <label for="<?php echo $this->get_field_id( 'show_rc' ); ?>"><?php _e( 'Show Release Candidate?', 'bns-ea' ); ?></label>
+        </p>
 
-    <p>
-        <input class="checkbox" type="checkbox" <?php checked( (bool) $instance['show_stable'], true ); ?> id="<?php echo $this->get_field_id( 'show_stable' ); ?>" name="<?php echo $this->get_field_name( 'show_stable' ); ?>" />
-        <label for="<?php echo $this->get_field_id( 'show_stable' ); ?>"><?php _e( 'Show Stable?', 'bns-ea' ); ?></label>
-    </p>
+        <p>
+            <input class="checkbox" type="checkbox" <?php checked( (bool) $instance['show_stable'], true ); ?> id="<?php echo $this->get_field_id( 'show_stable' ); ?>" name="<?php echo $this->get_field_name( 'show_stable' ); ?>" />
+            <label for="<?php echo $this->get_field_id( 'show_stable' ); ?>"><?php _e( 'Show Stable?', 'bns-ea' ); ?></label>
+        </p>
 
-    <p>
-        <input class="checkbox" type="checkbox" <?php checked( (bool) $instance['only_admin'], true ); ?> id="<?php echo $this->get_field_id( 'only_admin' ); ?>" name="<?php echo $this->get_field_name( 'only_admin' ); ?>" />
-        <label for="<?php echo $this->get_field_id( 'only_admin' ); ?>"><?php _e( 'Only Show Administrators?', 'bns-ea' ); ?></label>
-    </p>
+        <p>
+            <input class="checkbox" type="checkbox" <?php checked( (bool) $instance['only_admin'], true ); ?> id="<?php echo $this->get_field_id( 'only_admin' ); ?>" name="<?php echo $this->get_field_name( 'only_admin' ); ?>" />
+            <label for="<?php echo $this->get_field_id( 'only_admin' ); ?>"><?php _e( 'Only Show Administrators?', 'bns-ea' ); ?></label>
+        </p>
 
-    <hr />
-    <p>
-        <?php _e( 'NB: If no version is checked, or no matching version is found, the widget will not display.', 'bns-ea' ); ?>
-    </p>
+        <hr />
+        <p>
+            <?php _e( 'NB: If no version is checked, or no matching version is found, the widget will not display.', 'bns-ea' ); ?>
+        </p>
 
     <?php }
 }
@@ -375,6 +365,10 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
  *
  * @version 0.3
  * Added release candidate option
+ *
+ * @version 0.5
+ * @date    November 26, 2012
+ * Optimized output buffer code
  */
 function bnsea_shortcode( $atts ) {
     /** Get ready to capture the elusive widget output */
@@ -397,9 +391,7 @@ function bnsea_shortcode( $atts ) {
         )
     );
     /** Get the_widget output and put into its own container */
-    $bnsea_content = ob_get_contents();
-    ob_end_clean();
-    // All your snipes belong to us!
+    $bnsea_content = ob_get_clean();
 
     $bnsea_content = '<div class="bnsea-shortcode">' . $bnsea_content . '</div>';
 
