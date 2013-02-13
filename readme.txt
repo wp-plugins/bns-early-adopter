@@ -2,16 +2,16 @@
 Contributors: cais
 Donate link: http://buynowshop.com
 Tags: admin, widget-only
-Requires at least: 3.0
-Tested up to: 3.5
-Stable tag: 0.5
+Requires at least: 3.2
+Tested up to: 3.5.1
+Stable tag: 0.6
 License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 Show off you are an early adopter of WordPress
 
 == Description ==
-Show off you are an early adopter of WordPress (alpha, beta, and/or release candidate versions).
+Show off you are an early adopter of WordPress (alpha, beta, release candidate, and/or stable versions).
 
 == Installation ==
 Read this article for further assistance: http://wpfirstaid.com/2009/12/plugin-installation/
@@ -37,7 +37,7 @@ To show your faith in WordPress code and the developers who write it.
 1. Default widget options panel
 
 == Other Notes ==
-* Copyright 2012  Edward Caissie  (email : edward.caissie@gmail.com)
+* Copyright 2012-2013  Edward Caissie  (email : edward.caissie@gmail.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -63,6 +63,17 @@ To show your faith in WordPress code and the developers who write it.
 Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
+= 0.6 =
+* Release February 2013
+* Added code block termination comments
+* Added more i18n compatibility
+* Change to PHP5 style class code format
+* Changed constructor function name (BNS_Early_Adopter_Widget) to __construct (i.e.: PHP5 code format)
+* Moved all code into class structure
+* Moved `bnsea_display` out of `widget` method
+* Pushed minimum required WordPress version to 3.2 to handle PHP5 requirement
+* Renamed `BNSEA_Scripts_and_Styles` to `scripts_and_styles`
+
 = 0.5 =
 * Release November 2012
 * Documentation updates
