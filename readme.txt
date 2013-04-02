@@ -3,15 +3,15 @@ Contributors: cais
 Donate link: http://buynowshop.com
 Tags: admin, widget-only
 Requires at least: 3.2
-Tested up to: 3.5.1
-Stable tag: 0.6
+Tested up to: 3.6
+Stable tag: 0.6.1
 License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 Show off you are an early adopter of WordPress
 
 == Description ==
-Show off you are an early adopter of WordPress (alpha, beta, release candidate, and/or stable versions).
+Show off you are an early adopter of WordPress by displaying a message showing what version you are running (alpha, beta, release candidate and/or stable versions).
 
 == Installation ==
 Read this article for further assistance: http://wpfirstaid.com/2009/12/plugin-installation/
@@ -63,6 +63,11 @@ To show your faith in WordPress code and the developers who write it.
 Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
+= 0.6.1 =
+* Released April 2013
+* Fixed conditional logic used to display plugin
+* Refactored where $ea_display boolean value is set
+
 = 0.6 =
 * Release February 2013
 * Added code block termination comments

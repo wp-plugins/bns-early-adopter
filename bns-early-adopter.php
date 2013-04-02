@@ -2,8 +2,8 @@
 /*
 Plugin Name: BNS Early Adopter
 Plugin URI: http://buynowshop.com/plugins/bns-early-adopter
-Description: Show off you are an early adopter of WordPress (alpha, beta, and/or release candidate versions)
-Version: 0.6
+Description: Show off you are an early adopter of WordPress (alpha, beta, release candidate, and/or stable versions)
+Version: 0.6.1
 TextDomain: bns-ea
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
@@ -13,14 +13,17 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 /**
  * BNS Early Adopter WordPress plugin
- * Show off you are an early adopter of WordPress (alpha, beta, and/or release
- * candidate versions)
+ * Show off you are an early adopter of WordPress by displaying a message
+ * showing what version you are running (alpha, beta, release candidate and/or
+ * stable versions).
  *
  * @package     BNS_Early_Adopter
+ * @version     0.6.1
+ *
  * @link        http://buynowshop.com/plugins/bns-early-adopter/
  * @link        https://github.com/Cais/bns-early-adopter/
  * @link        http://wordpress.org/extend/plugins/bns-early-adopter/
- * @version     0.6
+ *
  * @author      Edward Caissie <edward.caissie@gmail.com>
  * @copyright   Copyright (c) 2012-2013, Edward Caissie
  *
@@ -55,6 +58,10 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * Added code block termination comments
  * Changed constructor function name to __construct (i.e.: PHP5 code format)
  * Move all code into class structure
+ *
+ * @version 0.6.1
+ * @date    April 2, 2013
+ * Fixed conditional logic used to display plugin
  */
 
 class BNS_Early_Adopter_Widget extends WP_Widget {
@@ -172,6 +179,10 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
      * @version 0.6
      * @date    February 13, 2013
      * Moved `bnsea_display` out of `widget` method
+     *
+     * @version 0.6.1
+     * @date    April 2, 2013
+     * Fixed conditional logic used to display plugin
      */
     function widget( $args, $instance ){
         /** Get widget setting values */
@@ -224,12 +235,12 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
          * If all options are off BNS_Early_Adopter_Widget::bnsea_display will
          * return false and the widget should not display anything
          */
-        if ( $this->bnsea_display( $instance, $ea_version ) ) {
+        if ( ! $this->bnsea_display( $instance, $ea_version ) ) {
             echo '<div class="bnsea-no-show">';
-        } /** End if - not true */
+        } /** End if - not bnsea display returns true */
 
         /** Conditional check - only show Administrators */
-        if ( ( $only_admin ) && ( ( ! is_user_logged_in() ) || ( ! current_user_can( 'manage_options' ) ) ) ) {
+        if ( $only_admin ) {
             echo '<div class="bnsea-no-show">';
         } /** End if - only administrators */
 
@@ -268,7 +279,7 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
         echo $after_widget;
 
         /** Conditional check - only show Administrators */
-        if ( ( $only_admin ) && ( ( ! is_user_logged_in() ) || ( ! current_user_can( 'manage_options' ) ) ) ){
+        if ( $only_admin ) {
             echo '</div><!-- bnsea-no-show -->';
         } /** End if - only administrators */
 
@@ -276,9 +287,9 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
          * If all options are off BNS_Early_Adopter_Widget::bnsea_display will
          * return false and the widget should not display anything
          */
-        if ( $this->bnsea_display( $instance, $ea_version ) ) {
+        if ( ! $this->bnsea_display( $instance, $ea_version ) ) {
             echo '</div><!-- bnsea-no-show -->';
-        } /** End if - not true */
+        } /** End if - not bnsea display returns true */
 
     } /** End function - widget */
 
@@ -289,6 +300,7 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
      * Returns string value to dictate if widget should be displayed or not.
      * Widget will not display by default.
      *
+     * @package BNS_Early_Adopter
      * @since   0.2
      *
      * @param   array $instance - widget options
@@ -302,17 +314,24 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
      * @version 0.6
      * @date    February 13, 2013
      * Moved out of `widget` method
+     *
+     * @version 0.6.1
+     * @date    April 2, 2013
+     * Refactored where $ea_display boolean value is set
      */
     function bnsea_display( $instance, $ea_version ){
-        /** @var string $ea_display - default return value: false  */
-        $ea_display = 'false';
 
         if ( ( $instance['show_alpha'] && ( 'alpha' == $ea_version ) )
             || ( $instance['show_beta'] && ( 'beta' == $ea_version ) )
             || ( $instance['show_rc'] && ( 'release candidate' == $ea_version ) )
             || ( $instance['show_stable'] && ( 'stable' == $ea_version ) ) ) {
-            $ea_display = 'true';
-            return $ea_display;
+
+            $ea_display = true;
+
+        } else {
+
+            $ea_display = false;
+
         } /** End if - boolean test to change display to true */
 
         return $ea_display;
@@ -476,7 +495,7 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
      */
     function load_bnsea_widget() {
         register_widget( 'BNS_Early_Adopter_Widget' );
-    }
+    } /** End function - load widget */
 
 
 } /** End class */
