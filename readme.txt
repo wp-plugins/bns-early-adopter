@@ -4,7 +4,7 @@ Donate link: http://buynowshop.com
 Tags: admin, widget-only
 Requires at least: 3.2
 Tested up to: 3.6
-Stable tag: 0.6.1
+Stable tag: 0.7
 License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -63,6 +63,11 @@ To show your faith in WordPress code and the developers who write it.
 Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
+= 0.7 =
+* Released July 2013
+* Corrected Administrator Only conditional and added admin only classes
+* Added filter for "Administrator ONLY View" text
+
 = 0.6.1 =
 * Released April 2013
 * Fixed conditional logic used to display plugin
