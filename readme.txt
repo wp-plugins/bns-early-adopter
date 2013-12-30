@@ -3,8 +3,8 @@ Contributors: cais
 Donate link: http://buynowshop.com
 Tags: admin, widget-only
 Requires at least: 3.2
-Tested up to: 3.6
-Stable tag: 0.7
+Tested up to: 3.8.1
+Stable tag: 0.7.1
 License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -63,6 +63,10 @@ To show your faith in WordPress code and the developers who write it.
 Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
+= 0.7.1 =
+* Released December 2013
+* Code Reformatting and version compatibility update
+
 = 0.7 =
 * Released July 2013
 * Corrected Administrator Only conditional and added admin only classes
