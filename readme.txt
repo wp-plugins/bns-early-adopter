@@ -3,8 +3,8 @@ Contributors: cais
 Donate link: http://buynowshop.com
 Tags: admin, widget-only
 Requires at least: 3.2
-Tested up to: 3.8.1
-Stable tag: 0.7.1
+Tested up to: 3.9
+Stable tag: 0.8
 License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -33,11 +33,14 @@ NB: Custom CSS may be required when this shortcode is used with some Themes.
 = Q: Why would I want to use this plugin / widget? =
 To show your faith in WordPress code and the developers who write it.
 
+= Q: My custom styles are no working, what happened? =
+WordPress essentially removes the existing files and folders of a plugin and replaces them with the new updated package, including any custom stylesheet you may have added. This would remove you old customizations. To future proof these additions you can now use the `/bns-customs/` folder (you may need to create this folder) under `/wp-content/`.
+
 == Screenshots ==
 1. Default widget options panel
 
 == Other Notes ==
-* Copyright 2012-2013  Edward Caissie  (email : edward.caissie@gmail.com)
+* Copyright 2012-2014  Edward Caissie  (email : edward.caissie@gmail.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -63,6 +66,17 @@ To show your faith in WordPress code and the developers who write it.
 Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
+= 0.8 =
+* Released May 2014
+* Added optional shortcode_atts filter variable
+* Added `plugin_data` method
+* Added new FAQ referencing the `/bns-customs/` folder location
+* Define location for BNS plugin customizations
+* Move to use generic folder for all "BNS" plugins to use
+* Updated required version of WordPress to 3.6
+* Updated compatibility version
+* Updated copyright years
+
 = 0.7.1 =
 * Released December 2013
 * Code Reformatting and version compatibility update
