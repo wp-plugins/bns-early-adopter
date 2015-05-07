@@ -3,8 +3,8 @@ Contributors: cais
 Donate link: http://buynowshop.com
 Tags: admin, version, shortcode, widget
 Requires at least: 3.6
-Tested up to: 4.2
-Stable tag: 0.9
+Tested up to: 4.2.2
+Stable tag: 1.0
 License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -40,7 +40,7 @@ WordPress essentially removes the existing files and folders of a plugin and rep
 1. Default widget options panel
 
 == Other Notes ==
-* Copyright 2012-2014  Edward Caissie  (email : edward.caissie@gmail.com)
+* Copyright 2012-2015  Edward Caissie  (email : edward.caissie@gmail.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -66,6 +66,14 @@ WordPress essentially removes the existing files and folders of a plugin and rep
 Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
+= 1.0 =
+* Released May 2015
+* Added "BNS Early Adopter Update Message" function
+* Added better i18n support
+* Added default `.po` and `en_CA` translation files
+* Minor documentation updates
+* Removed extraneous comments and updated copyright years
+
 = 0.9 =
 * Released November 2014
 * Changed textdomain to `bns-early-adopter` from `bns-ea`
