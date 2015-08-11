@@ -3,7 +3,7 @@
 Plugin Name: BNS Early Adopter
 Plugin URI: http://buynowshop.com/plugins/bns-early-adopter
 Description: Show off you are an early adopter of WordPress (alpha, beta, release candidate, and/or stable versions)
-Version: 1.0
+Version: 1.1
 TextDomain: bns-early-adopter
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
@@ -18,7 +18,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * stable versions).
  *
  * @package        BNS_Early_Adopter
- * @version        1.0
+ * @version        1.1
  *
  * @link           http://buynowshop.com/plugins/bns-early-adopter/
  * @link           https://github.com/Cais/bns-early-adopter/
@@ -113,7 +113,7 @@ class BNS_Early_Adopter_Widget extends WP_Widget {
 		);
 
 		/** Create the Widget */
-		$this->WP_Widget( 'bns-early-adopter', 'BNS Early Adopter', $widget_ops, $control_ops );
+		parent::__construct( 'bns-early-adopter', 'BNS Early Adopter', $widget_ops, $control_ops );
 
 		/** Define location for BNS plugin customizations */
 		if ( ! defined( 'BNS_CUSTOM_PATH' ) ) {

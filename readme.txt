@@ -3,8 +3,8 @@ Contributors: cais
 Donate link: http://buynowshop.com
 Tags: admin, version, shortcode, widget
 Requires at least: 3.6
-Tested up to: 4.2.2
-Stable tag: 1.0
+Tested up to: 4.3
+Stable tag: 1.1
 License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -66,6 +66,10 @@ WordPress essentially removes the existing files and folders of a plugin and rep
 Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
+= 1.1 =
+* Released August 2015
+* Updated to use PHP5 constructor objects
+
 = 1.0 =
 * Released May 2015
 * Added "BNS Early Adopter Update Message" function
