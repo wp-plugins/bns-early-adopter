@@ -1,0 +1,43 @@
+/**
+ * This file is part of BNS Early Adopter
+ * Last revised at version 0.3.1
+ *
+ * Copyright 2012-2015  Edward Caissie  (email : edward.caissie@gmail.com)
+ *
+ * BNS Featured Category is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
+ *
+ * You may NOT assume that you can use any other version of the GPL.
+ *
+ * BNS Featured Category is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to:
+ *
+ *      Free Software Foundation, Inc.
+ *      51 Franklin St, Fifth Floor
+ *      Boston, MA  02110-1301  USA
+ */
+
+.bnsea-no-show {
+	display: none;
+}
+
+div.bnsea-shortcode div.widget,
+div.bnsea-shortcode div.widget h2 {
+	background: none;
+	border: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+h3.bnsea-output {
+	font-style: italic;
+	margin: 0;
+	text-align: center;
+}
